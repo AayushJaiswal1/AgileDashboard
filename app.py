@@ -881,6 +881,6 @@ def add_user_story(project_id):
         project=project,
         sprints=sprints['SprintNo']
     )
-
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run(host='0.0.0.0', port=5000, debug=True)
+
