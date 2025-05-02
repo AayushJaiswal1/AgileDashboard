@@ -12,16 +12,21 @@ pipeline {
             }
         }
 
-        stage('Build Docker Image') {
-            steps {
-                sh 'docker build -t $IMAGE_NAME .'
-            }
-        }
-
-        stage('Run App Container') {
-            steps {
-                sh 'docker run -d -p 5000:5000 --name agile-dashboard $IMAGE_NAME'
-            }
-        }
-    }
-}
+       stage('Build Docker Image') {
+             steps {
+                 sh 'docker build -t agile-dashboard .'
+             }
+         }
+ 
+         stage('Run App Container') {
+             steps {
+                 sh '''
+                 docker stop flask-app || true
+                 docker rm flask-app || true
+                 docker run -d -p 5000:5000 --name flask-app agile-dashboard
+                 '''
+             }
+         }
+     }
+ }
+ 
