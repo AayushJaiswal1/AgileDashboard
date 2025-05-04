@@ -13,8 +13,8 @@ import time
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'your_secret_key'  # Set your secret key
 serializer = URLSafeTimedSerializer(app.secret_key)
-sender_email = "ankitaisadoctor@gmail.com"
-sender_password = "ihkskbdmdlitzbbh"
+sender_email = "aayushjaiswal4333@gmail.com"
+sender_password = "dsjh weux bisl cfou"
 DATABASE = 'projects.db'
 
 # Function to get database connection 
