@@ -44,21 +44,15 @@ pipeline {
             }
         }
 
-        stage('Deploy to Production (Remote Instance)') {
-    steps {
-        sshagent(['my-ssh-credentials']) {  
-            sh """
-            ssh -o StrictHostKeyChecking=no ubuntu@3.12.85.198 '
-            docker stop flask-app || true
-            docker rm flask-app || true
-            docker pull ${DOCKERHUB_USERNAME}/${IMAGE_NAME}:latest
-            docker run -d -p 80:5000 --name flask-app ${DOCKERHUB_USERNAME}/${IMAGE_NAME}:latest
-            '
-            """
+        stage('Deploy to Production') {
+            steps {
+                sh """
+                docker stop ${CONTAINER_NAME} || true
+                docker rm ${CONTAINER_NAME} || true
+                docker run -d -p 80:5000 --name ${CONTAINER_NAME} ${DOCKERHUB_USERNAME}/${IMAGE_NAME}:latest
+                """
+            }
         }
-    }
-}
-
     }
 
     post {
